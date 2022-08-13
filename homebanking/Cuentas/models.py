@@ -6,14 +6,14 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+from Clientes.models import Cliente
 
 class Cuenta(models.Model):
     account_id = models.AutoField(primary_key=True)
     balance = models.IntegerField()
     iban = models.TextField()
     account_type = models.TextField(blank=True, null=True)
-    customer = models.ForeignKey('Cliente', models.DO_NOTHING, blank=True, null=True)
+    customer = models.ForeignKey(Cliente, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
