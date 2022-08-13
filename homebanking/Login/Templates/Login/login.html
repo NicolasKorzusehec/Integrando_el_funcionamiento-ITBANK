@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ITBANK</title>
+    <meta name="description" content="Inicio de sesión al homebanking ITBANK">
+    <meta name="author" content="Juan Ledesma, Nicolas Molinas, Nicolás Korzusehec, Elias Upstein">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="{% static 'img/avatar2.png' %}">       
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link href="{% static 'css/login.css' %}" rel="stylesheet">
+
+</head>
+<body>
+    <section id="loginbox">
+        <img src="{% static 'img/logoITBANK.jpg' %}" class="logoITBANK">       
+            <h1>Bienvenido al ITBANK!</h1>
+            <form> <!--Configurar formulario-->
+                <p>Usuario</p>
+                    <input type="text" name="" placeholder="Ingrese su usuario">
+                <p>Contraseña</p>
+                    <input type="password" name="" placeholder="Ingrese su contraseña">
+                    <input type="submit" name="" value="Ingresar">
+                <a href="{% url  %}">¿Olvido su contraseña?</a><br> <!--Agregar url correspondiente-->
+                <a href="{% url  %}">¿Todavia no es cliente?</a>    <!--Agregar url correspondiente-->
+            </form>
+    </section>
+</body>
+</html>
