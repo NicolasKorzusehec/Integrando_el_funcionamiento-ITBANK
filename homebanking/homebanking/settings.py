@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Clientes',
+    'Cuentas',
+    'Login',
+    'Prestamos',
+    'Tarjetas',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +59,10 @@ ROOT_URLCONF = 'homebanking.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'Clientes/templates/Clientes',
+            'Login/templates/Login'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

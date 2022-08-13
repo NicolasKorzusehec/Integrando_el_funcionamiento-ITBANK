@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+from Clientes.models import Cliente
 
 class Tarjeta(models.Model):
     card_id = models.AutoField(primary_key=True)
@@ -15,7 +15,7 @@ class Tarjeta(models.Model):
     issue_date = models.TextField()
     exp_date = models.TextField()
     type_card = models.TextField()
-    customer = models.ForeignKey('Cliente', models.DO_NOTHING)
+    customer = models.ForeignKey(Cliente, models.DO_NOTHING)
     brand = models.ForeignKey('MarcaTarjeta', models.DO_NOTHING)
 
     class Meta:
