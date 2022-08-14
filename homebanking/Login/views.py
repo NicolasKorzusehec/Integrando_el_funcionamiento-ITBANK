@@ -7,5 +7,3 @@ def landing(request):
         return render(request, os.path.join("Clientes","home.html"), {'name' : request.user.username}) """
     return render(request, "landing.html")
 
-def iniciar(request):
-    return render(request, "login.html")

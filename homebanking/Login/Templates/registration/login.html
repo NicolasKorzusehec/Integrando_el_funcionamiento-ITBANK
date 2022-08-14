@@ -1,46 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'registration/base_registration.html' %}
 
-    <title>ITBANK</title>
-    <meta name="description" content="Inicio de sesión al homebanking ITBANK">
-    <meta name="author" content="Juan Ledesma, Nicolas Molinas, Nicolás Korzusehec, Elias Upstein">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+{% load static %}
+{% block title %}Iniciar sesión{% endblock %}
 
-    {% load static %}
-    <link rel="shortcut icon" href="{% static 'Login/img/avatar2.png' %}">       
-    <link rel="stylesheet" type="text/css" href="{% static 'Login/css/login.css' %}">
+{% block content %}
+<form action="" method="post">{% csrf_token %}
 
-</head>
-<body>
-    <section id="loginbox">
-        <img src="{% static 'Login/img/logoITBANK.jpg' %}" class="logoITBANK">       
-            <h1>Bienvenido al ITBANK!</h1>
-            <form action="" method="post">{% csrf_token %}
+    {% if form.non_field_errors %}
+        <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+    {% endif %}
 
-                {% if form.non_field_errors %}
-                    <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
-                {% endif %}
+    <p>Usuario</p>
+        <input type="text" name="username" autofocus maxlength="254" required
+        id="id_username" placeholder="Ingrese su usuario">
+    <p>Contraseña</p>
+        <input type="password" name="password" required id="id_password" placeholder="Ingrese su contraseña">
 
-                <p>Usuario</p>
-                    <input type="text" name="username" autofocus maxlength="254" required
-                    id="id_username" placeholder="Ingrese su usuario">
-                <p>Contraseña</p>
-                    <input type="password" name="password" required id="id_password" placeholder="Ingrese su contraseña">
+        <input type="submit" name="" value="Ingresar">
+</form>
+<!--
+    <a href="{% url 'password_reset' %}">¿Olvido su contraseña?</a><br> 
+    <a href="{% url 'inicio' %}">¿Todavia no es cliente?</a>    
+    -->
 
-                    <input type="submit" name="" value="Ingresar">
-            </form>
-            <!--
-                <a href="{% url 'password_reset' %}">¿Olvido su contraseña?</a><br> 
-                <a href="{% url 'inicio' %}">¿Todavia no es cliente?</a>    
-                -->
-
-    </section>
-</body>
-</html>
+{% endblock %}
