@@ -60,8 +60,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            #'Clientes/templates/Clientes',
-            #'Login/templates/Login',                                             #### analizable
+            os.path.join(BASE_DIR, 'Clientes','templates', "Clientes"),
             os.path.join(BASE_DIR, 'Login','templates')
         ],
         'APP_DIRS': True,
@@ -138,7 +137,7 @@ MEDIA_URL = '/media/'    #carpeta interna donde se encuentran los archivos
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")  #URL externa
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = 'inicio/'
+LOGIN_REDIRECT_URL = '/inicio/'
 
 # Redirect to home URL after logout (Default redirects to /accounts/profile/)
 LOGOUT_REDIRECT_URL = '/'
