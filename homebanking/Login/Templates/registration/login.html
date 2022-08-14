@@ -1,0 +1,26 @@
+{% extends 'registration/base_registration.html' %}
+
+{% load static %}
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+
+    {% if form.non_field_errors %}
+        <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+    {% endif %}
+
+    <p>Usuario</p>
+        <input type="text" name="username" autofocus maxlength="254" required
+        id="id_username" placeholder="Ingrese su usuario">
+    <p>Contraseña</p>
+        <input type="password" name="password" required id="id_password" placeholder="Ingrese su contraseña">
+
+        <input type="submit" name="" value="Ingresar">
+</form>
+<!--
+    <a href="{% url 'password_reset' %}">¿Olvido su contraseña?</a><br> 
+    <a href="{% url 'inicio' %}">¿Todavia no es cliente?</a>    
+    -->
+
+{% endblock %}
