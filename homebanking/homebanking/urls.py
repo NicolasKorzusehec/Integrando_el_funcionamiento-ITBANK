@@ -19,8 +19,9 @@ from Login import views as login_views
 from Clientes import views as clients_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', login_views.landing, name="landing"),
     path('login/', login_views.iniciar, name="login"),
     path('inicio/', clients_views.inicio, name="inicio"),
+
+    path('admin/', admin.site.urls),
 ]
