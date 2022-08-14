@@ -1,0 +1,20 @@
+# Environments (Agrupa todos los enviroments que podria estar creando un contribuidor)
+
+.env
+
+.venv
+
+env/
+
+venv/
+
+ENV/
+
+env.bak/
+
+venv.bak/
+
+
+# Archivos temporales
+
+__pycache__/
