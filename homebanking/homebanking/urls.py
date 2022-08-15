@@ -31,6 +31,7 @@ urlpatterns = [
     #Agregamos las direcciones de autenticacion (login, logout, gestion password)
     path('accounts/',include('django.contrib.auth.urls')),
     #path('accounts/registro', pruebas_views.registro,name = "registro"),
+    path('logout/', login_views.logout, name="logout"),
 
 ]
 
