@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 import os
 from pathlib import Path
 
@@ -140,4 +141,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")  #URL externa
 LOGIN_REDIRECT_URL = '/inicio/'
 
 # Redirect to home URL after logout (Default redirects to /accounts/profile/)
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/logout/'
+
+#Test email
+#Esto registra en la consola cualquier envío de correo electrónico (y así puedes copiar el enlace de reinicio de contraseña desde dicha consola). Solo funciona si se introducen mails de usuarios que ya existan en la db.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

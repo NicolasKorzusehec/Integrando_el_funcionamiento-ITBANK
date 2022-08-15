@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ITBANK</title>
+
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'Login/img/avatar2.png' %}">       
+
 </head>
 <body>
     <h3>Completar template!!!</h3>
 
     <a href="{% url 'login' %}">Iniciar Sesión</a>
-    <a href="{% url 'landing' %}">Registrarse</a>  <!--Agregar url correspondiente-->
+    <a href="{% url 'registro' %}">Registrarse</a>  <!--Agregar url correspondiente-->
 </body>
 </html>
