@@ -141,3 +141,7 @@ LOGIN_REDIRECT_URL = '/inicio/'
 
 # Redirect to home URL after logout (Default redirects to /accounts/profile/)
 LOGOUT_REDIRECT_URL = '/'
+
+#Test email
+#Esto registra en la consola cualquier envío de correo electrónico (y así puedes copiar el enlace de reinicio de contraseña desde dicha consola). Solo funciona si se introducen mails de usuarios que ya existan en la db.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
