@@ -6,3 +6,5 @@ Nombre de usuario: "usuario"
 Contraseña: "1234"
 
 Para solicitar la autenticacion de usuario en cada vista se coloca el decorador @login_required  inmediatamente arriba de la definicion de la view que requiera esa autenticacion
+
+La template de logout no es necesaria.
