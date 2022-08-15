@@ -1,21 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Ubuntu:wght@300;400;500;700&display=swap");
 
-body {
-    font-family: "Lato", sans-serif;
-}
-
-#header {
-    /* position: fixed;
-    z-index: 100; */
+header {
     background-color: #2c4c8c;
 }
 
-#logo {
+body {
+    font-family: "Ubuntu", sans-serif;
+}
+
+footer .container-fluid {
+    background-color: #2c4c8c;
     color: white;
-    user-select: none;
-    font-family: "Allerta Stencil", sans-serif;
-    font-size: 20px;
 }
 
 .nav-btn {
@@ -32,106 +27,41 @@ body {
     background-color: #4c71bb;
 }
 
-#saldo-cuenta {
-    width: 60rem;
+.service-button {
+    min-width: 172px;
 }
 
-#acceso {
+.service-img {
+    height: 48px;
+    width: 48px;
+}
+
+#cotizacion-dolar .card-footer {
     font-size: smaller;
 }
 
-footer {
-    margin: 0px;
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    padding: 10px;
-    background-color: #f4ebeb;
+#logo {
+    color: white;
+    user-select: none;
+    font-family: "Allerta Stencil", sans-serif;
+    font-size: 20px;
 }
 
-.buttons {
-    background-color: #e5e5e5;
-    padding: 20px;
+#profile {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
 }
 
-.card-header {
-    font-weight: 600;
-}
-
-.card-footer {
-    font-size: smaller;
-}
-
-.card-text {
+#saldo-cuenta .card-text {
     margin: 0;
     padding: 0;
 }
 
-footer {
-    background-size: cover;
-    background-color: #2c4c8c;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 150px;
+#saldo-cuenta .container {
+    width: 60rem;
 }
 
-.contacto,
-.acerca,
-.sucursales,
-.preguntas {
-    background-color: #2c4c8c;
-    width: 15%;
-    font-size: 16px;
-    left: 17.5%;
-    display: flex;
-    flex-direction: row;
-}
-
-.contacto__p,
-.sucursales__p,
-.preguntas__p,
-.acerca__p {
-    font-weight: bold;
-    font-size: 1.17em;
-    color: white;
-    font-family: "Source Sans Pro", sans-serif;
-}
-
-.material-symbols-outlined {
-    position: relative;
-    right: 8px;
-    top: 22px;
-}
-
-.bordes {
-    border-right: 1px solid rgb(255, 255, 255);
-    padding-right: 90px;
-}
-
-.contacto__p2,
-.sucursales__p2,
-.preguntas__p2,
-.acerca__p2 {
-    color: white;
-    font-family: "Source Sans Pro", sans-serif;
-}
-
-.contacto__p2 {
-    margin-left: 15px;
-}
-
-.sucursales__p2 {
-    position: relative;
-    right: 20px;
-}
-
-.preguntas__p2 {
-    position: relative;
-    right: 30px;
-}
-
-.acerca__p2 {
-    position: relative;
-    right: 60px;
+#saldo-cuenta .text-muted {
+    font-size: smaller;
 }
