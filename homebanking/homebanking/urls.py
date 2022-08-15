@@ -32,6 +32,7 @@ urlpatterns = [
     path('accounts/',include('django.contrib.auth.urls')),
     #path('accounts/registro', pruebas_views.registro,name = "registro"),
     path('logout/', login_views.logout, name="logout"),
+    path('accounts/registro', login_views.registro,name = "registro"),
 
 ]
 
