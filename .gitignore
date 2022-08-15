@@ -18,4 +18,3 @@ venv.bak/
 # Archivos temporales
 __pycache__/
 migrations/
-migrations\
