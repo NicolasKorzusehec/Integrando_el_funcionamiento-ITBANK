@@ -1,6 +1,8 @@
+{% load static %}
+
 <header id="header" class="container-fluid mb-2">
     <nav class="nav d-flex align-items-center">
-        <a><img src="src/img/browser-icon.png" alt="ITBANK-LOGO" style="height: 64px; width: 64px; user-select: none" /></a>
+        <a><img src="{% static 'Clientes/img/browser-icon.png' %}" alt="ITBANK-LOGO" style="height: 64px; width: 64px; user-select: none" /></a>
         <span class="disabled fs-1" id="logo">ITBANK</span>
         <a id="profile" class="nav-btn ms-auto" type="button" title="Menú">
             <!--default view-->
