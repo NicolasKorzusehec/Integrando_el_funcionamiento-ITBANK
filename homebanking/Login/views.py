@@ -14,11 +14,6 @@ def landing(request):
         return render(request, os.path.join("Clientes","home.html"), {'name' : request.user.username}) """
     return render(request, "landing.html")
 
-def logout(request):
-    """ if request.user.username:
-        return render(request, os.path.join("Clientes","home.html"), {'name' : request.user.username}) """
-    return render(request, os.path.join("registration","logout.html"))
-
 def registro(request):
     registro_form = RegistroForm
 
