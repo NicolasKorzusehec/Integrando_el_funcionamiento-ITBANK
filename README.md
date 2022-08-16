@@ -8,3 +8,5 @@ Contraseña: "1234"
 Para solicitar la autenticacion de usuario en cada vista se coloca el decorador @login_required  inmediatamente arriba de la definicion de la view que requiera esa autenticacion
 
 La template de logout no es necesaria.
+
+https://stackoverflow.com/questions/18231057/django-rss-feedparser-returns-a-feed-with-no-title
