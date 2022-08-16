@@ -54,7 +54,7 @@ class Empleado(models.Model):
     employee_surname = models.TextField()
     employee_hire_date = models.TextField()
     employee_dni = models.TextField(db_column='employee_DNI')  # Field name made lowercase.
-    branch_id = models.IntegerField()
+    branch_id = models.ForeignKey("Sucursal", models.DO_NOTHING, blank=True, null=True)
     employee_address = models.ForeignKey(Direccion, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:

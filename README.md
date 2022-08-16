@@ -10,3 +10,9 @@ Para solicitar la autenticacion de usuario en cada vista se coloca el decorador 
 La template de logout no es necesaria.
 
 https://stackoverflow.com/questions/18231057/django-rss-feedparser-returns-a-feed-with-no-title
+https://zerotobyte.com/complete-guide-to-django-foreignkey/
+
+
+Si se rompen las migraciones y tira que hay una columna con nombre duplicado ejecutar:
+manage.py migrate sites --fake, sites es la app que se rompio
+rejecutar las migraciones
