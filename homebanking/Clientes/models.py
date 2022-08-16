@@ -71,17 +71,16 @@ class Sucursal(models.Model):
     branch_id = models.AutoField(primary_key=True)
     branch_number = models.BinaryField()
     branch_name = models.TextField()
-    branch_address = models.ForeignKey(Direccion, models.DO_NOTHING, blank=True, null=True)
+    branch_address = models.ForeignKey(Direccion, on_delete=models.CASCADE)
 
     class Meta:
-        managed = False
         db_table = 'sucursal'
         verbose_name = "Sucursal"
         verbose_name_plural = "Sucursales"
         ordering = ["-branch_id"]
 
     def __str__(self): 
-        return self.branch_name + " with id = " + str(self.branch_id)
+        return self.branch_name #+ " with id = " + str(self.branch_id)
 
 class TipoCliente(models.Model):
     customer_type_id = models.AutoField(primary_key=True)
