@@ -25,7 +25,7 @@ class Cliente(models.Model):
         ordering = ["-customer_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
-        return self.customer_name + " with DNI = " + self.customer_dni + str(self.customer_type) + str(self.branch) + str(self.customer_id) + str(self.customer_surname) + str(self.dob) + str(self.dob) #str(self.customer_address)
+        return self.customer_name + " with DNI = " + self.customer_dni 
 
 
 
@@ -44,7 +44,7 @@ class Direccion(models.Model):
         ordering = ["-address_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
-        return self.address_id
+        return str(self.address_id)
 
 class Empleado(models.Model):
     employee_id = models.AutoField(primary_key=True)
@@ -52,7 +52,7 @@ class Empleado(models.Model):
     employee_surname = models.TextField()
     employee_hire_date = models.TextField()
     employee_dni = models.TextField(db_column='employee_DNI')  # Field name made lowercase.
-    branch_id = models.ForeignKey("Sucursal",  on_delete=models.CASCADE, blank=True, null=True)
+    branch = models.ForeignKey("Sucursal",  on_delete=models.CASCADE, blank=True, null=True)
     employee_address = models.ForeignKey(Direccion,  on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
@@ -95,7 +95,7 @@ class TipoCliente(models.Model):
     class Meta:
         db_table = 'tipo_cliente'
         verbose_name = "Tipo de cliente"
-        verbose_name_plural = "Tipos de clientes"
+        verbose_name_plural = "Tipos de cliente"
         ordering = ["-customer_type_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
