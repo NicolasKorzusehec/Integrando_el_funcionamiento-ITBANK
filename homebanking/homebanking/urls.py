@@ -20,10 +20,13 @@ from django.urls import include
 
 from Login import views as login_views
 from Clientes import views as clients_views
+from Prestamos import views as loan_views
 
 urlpatterns = [
     path('', login_views.landing, name="landing"),
     path('inicio/', clients_views.inicio, name="inicio"),
+
+    path('prestamos/', loan_views.Prestamos, name="prestamos"),
 
     path('admin/', admin.site.urls),
 
@@ -31,7 +34,7 @@ urlpatterns = [
     #Agregamos las direcciones de autenticacion (login, logout, gestion password)
     path('accounts/',include('django.contrib.auth.urls')),
     path('accounts/registro', login_views.registro,name = "registro"),
-
+  
 ]
 
 
