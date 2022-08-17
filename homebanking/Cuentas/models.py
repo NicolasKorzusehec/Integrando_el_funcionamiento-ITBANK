@@ -13,11 +13,17 @@ class Cuenta(models.Model):
     balance = models.IntegerField()
     iban = models.TextField()
     account_type = models.TextField(blank=True, null=True)
-    customer = models.ForeignKey(Cliente, models.DO_NOTHING, blank=True, null=True)
+    customer = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'cuenta'
+        verbose_name = "Cuenta"
+        verbose_name_plural = "Cuentas"
+        ordering = ["-account_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
+
+    def __str__(self): 
+        return self.customer.customer_name + " de tipo: " + self.account_type
+
 
 class Movimientos(models.Model):
     transaction_id = models.AutoField(primary_key=True)
