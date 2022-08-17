@@ -32,13 +32,14 @@
 <h1>Prestamos</h1>
     <div class="container-fluid">
         <form action="" method="post">{% csrf_token %}
+            <hr>
             <label for="prestamo">Tipo de prestamo:</label><br>
             <input type="text" id="prestamo"><br>
             <label for="fachain">Fecha de inicio:</label><br>
             <input type="date" id="fechain"><br>
             <label for ="monto">Monto: </label><br>
             <input type="number" id="monto"><br>
-            <input id ="enviarDatos"type="submit" value="Consultar">
+            <input id ="enviarDatos"type="submit" value="Consultar"><hr>
 
         </form>
     </div>
