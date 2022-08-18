@@ -14,8 +14,6 @@ class Cliente(models.Model):
     customer_surname = models.TextField()  # This field type is a guess.
     customer_dni = models.TextField(db_column='customer_DNI')  # Field name made lowercase.
     dob = models.DateField(blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
-    telefono = models.IntegerField(blank=True, null=True)
     customer_type = models.ForeignKey('TipoCliente', on_delete=models.CASCADE, blank=True, null=True)
     customer_address = models.ForeignKey('Direccion', on_delete=models.CASCADE, blank=True, null=True)
     branch = models.ForeignKey('Sucursal',  on_delete=models.CASCADE, blank=True, null=True)

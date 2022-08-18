@@ -17,11 +17,13 @@ https://zerotobyte.com/complete-guide-to-django-foreignkey/
 # Importante, suele pasar con foreignkey, 
 Si se rompen las migraciones y tira que hay una columna con nombre duplicado ejecutar:
 ```py
-manage.py migrate sites --fake          #sites es la app que se rompio
+manage.py migrate sites --fake          
+#sites es la app que se rompio
 ```
 rejecutar las migraciones
 
 
+manage.py migrate Clientes --fake          
 
 
 
