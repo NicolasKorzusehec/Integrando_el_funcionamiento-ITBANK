@@ -149,3 +149,6 @@ LOGOUT_REDIRECT_URL = 'landing'
 #Test email
 #Esto registra en la consola cualquier envío de correo electrónico (y así puedes copiar el enlace de reinicio de contraseña desde dicha consola). Solo funciona si se introducen mails de usuarios que ya existan en la db.
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+#AUTH_USER_MODEL = 'Login.UsuarioCustom'

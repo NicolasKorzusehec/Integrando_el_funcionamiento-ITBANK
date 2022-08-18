@@ -13,7 +13,9 @@ class Cliente(models.Model):
     customer_name = models.TextField()
     customer_surname = models.TextField()  # This field type is a guess.
     customer_dni = models.TextField(db_column='customer_DNI')  # Field name made lowercase.
-    dob = models.TextField(blank=True, null=True)
+    dob = models.DateField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    telefono = models.IntegerField(blank=True, null=True)
     customer_type = models.ForeignKey('TipoCliente', on_delete=models.CASCADE, blank=True, null=True)
     customer_address = models.ForeignKey('Direccion', on_delete=models.CASCADE, blank=True, null=True)
     branch = models.ForeignKey('Sucursal',  on_delete=models.CASCADE, blank=True, null=True)
@@ -44,7 +46,7 @@ class Direccion(models.Model):
         ordering = ["-address_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
-        return str(self.address_id)
+        return str(f"{self.street} {self.number}, {self.city}, {self.province}, {self.country}")
 
 class Empleado(models.Model):
     employee_id = models.AutoField(primary_key=True)
