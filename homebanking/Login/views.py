@@ -6,8 +6,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 # el form del registro
-from .forms import RegistroForm, ClienteForm
-from Clientes.models import Cliente
+from .forms import RegistroForm, ClienteForm, DireccionForm
+from Clientes.models import Cliente, Direccion
 
 
 # Create your views here.
@@ -64,8 +64,32 @@ def NewClient(request):
             cliente.save()
             print('creado')
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
-        return redirect(reverse('nuevo_cliente'))
+        return redirect(reverse('nueva_direccion'))
         
     return render(request, os.path.join("registration","new_client.html"), {'form': client_form})
+
+def NewDirec(request):
+    # Se debe crear una instancia de este formulario en la vista 'NewDirec' y enviarla al template
+    direc_form = DireccionForm
+
+    #validamos que ocurrio una peticion POST
+    if request.method == "POST":
+        #Traemos los datos enviados
+        direccion = Direccion()
+        direc_form = direc_form(data=request.POST)
+
+        if direc_form.is_valid():
+            direccion.street = request.POST.get("Calle", "")
+            direccion.number = request.POST.get("number", "")
+            direccion.city = request.POST.get("city", "")
+            direccion.province = request.POST.get("province", "")
+            direccion.country = request.POST.get("country", "")
+            
+            direccion.save()
+            print('creado')
+            #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
+        return redirect(reverse('registro'))
+        
+    return render(request, os.path.join("registration","new_direc.html"), {'form': direc_form})
 
 

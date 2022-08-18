@@ -1,6 +1,8 @@
 ##app_prueba/forms.py
 from django import forms
 
+from Clientes.models import Direccion
+
 #Impacta un nuevo usuario en la BD
 class RegistroForm(forms.Form):
     cliente_id = forms.CharField(label="Nombre de usuario", required=True)
@@ -25,5 +27,20 @@ class ClienteForm(forms.Form):
     item_lista= forms.CharField(label='Que opciones elegis?', widget=forms.Select(choices=lista))"""
 
 
+
+class DireccionForm(forms.Form):
+    street = forms.CharField(label="Calle", required=True)
+    number = forms.IntegerField(label="Numero", required=True)
+    city = forms.CharField(label="Ciudad", required=True)
+    province = forms.CharField(label="Provincia", required=True)
+    country = forms.CharField(label="Pais", required=True)
+
+
+
+"""class DireccionForm(forms.ModelForm):
+    class Meta:
+        model = Direccion
+        fields = ('street', 'number', 'city', 'province', 'country',)
+        """
 
 
