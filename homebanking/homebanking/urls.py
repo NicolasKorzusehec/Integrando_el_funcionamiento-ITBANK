@@ -25,7 +25,8 @@ from Prestamos import views as loan_views
 urlpatterns = [
     path('', login_views.landing, name="landing"),
     path('inicio/', clients_views.inicio, name="inicio"),    
-    path('new_client/', login_views.NewClient, name="nuevo_cliente"),
+    path('nuevo_cliente/', login_views.NewClient, name="nuevo_cliente"),
+    path('nueva_direccion/', login_views.NewDirec, name="nueva_direccion"),
     path('prestamos/', loan_views.Prestamos, name="prestamos"),
 
     path('admin/', admin.site.urls),
