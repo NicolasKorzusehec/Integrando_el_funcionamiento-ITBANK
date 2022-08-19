@@ -27,7 +27,7 @@ class Cliente(models.Model):
         ordering = ["-customer_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
-        return self.customer_name + " with DNI = " + self.customer_dni 
+        return self.customer_dni 
 
 
 

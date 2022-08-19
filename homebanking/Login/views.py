@@ -31,10 +31,12 @@ def registro(request):
             
             dni= interesado["dni"]
             condicion = Cliente.objects.filter(customer_dni = dni)
-            if str(condicion) != "<QuerySet []>": 
-                cliente_id = request.POST.get('cliente_id','')
+            if str(condicion) != "<QuerySet []>":
+                print(condicion) 
+                cliente_id = request.POST.get('dni','')
                 email = request.POST.get('email','')
                 pwd = request.POST.get('pwd','') 
+                clave = request.POST.get("clave",'')
                 print(cliente_id,email,pwd) 
 
                 user = Usuario.objects.create_user(cliente_id, email, pwd)

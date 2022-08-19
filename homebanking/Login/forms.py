@@ -6,10 +6,10 @@ from Clientes.models import Direccion
 #Impacta un nuevo usuario en la BD
 class RegistroForm(forms.Form):
     dni = forms.IntegerField(label="DNI", required=True)
-
-    cliente_id = forms.CharField(label="Nombre de usuario", required=True)
+    #cliente_id = forms.CharField(label="Nombre de usuario", required=True)
     email = forms.CharField(label="Email", required=True)
     pwd = forms.CharField(label="Contraseña", required=True)
+    clave = forms.IntegerField(label="Clave (4 digitos)", required = True)
 
 
 
