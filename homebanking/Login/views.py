@@ -47,22 +47,27 @@ def NewClient(request):
 
     #validamos que ocurrio una peticion POST
     if request.method == "POST":
-        #Traemos los datos enviados
+        #No guardamos los datos aqui sino que los almacenamos en la session y los guardamos unicamente cuando tambien se haya creado 
         cliente = Cliente()
         client_form = client_form(data=request.POST)
 
         if client_form.is_valid():
-            cliente.customer_name = request.POST.get("customer_name", "")
-            cliente.customer_surname = request.POST.get("customer_surname", "")
-            cliente.customer_dni = request.POST.get("customer_dni", "")
-            cliente.dob = request.POST.get("dob", "")
+            interesado = {}
+            interesado["customer_name"]= request.POST.get("customer_name", "")
+            interesado["customer_surname"] = request.POST.get("customer_surname", "")
+            interesado["customer_dni"] = request.POST.get("customer_dni", "")
+            interesado["dob"] = request.POST.get("dob", "")
+            interesado["email"] = request.POST.get("email", "")
             
-            #print(name,email,content)
+            interesado["Telefono"] = request.POST.get("telefono", "")
+            
+            request.session['interesado'] = interesado 
+            request.session.modified = True 
+                #{{ request.session.interesado }}   guardo el dato en la session y con este tag lo puedo referenciar desde el front
+            print( request.session["interesado"] )
 
-            #contacto = Contacto.objects.all(name, email, content)
-
-            cliente.save()
-            print('creado')
+            #cliente.save()
+            #print('creado')
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
         return redirect(reverse('nueva_direccion'))
         
@@ -86,7 +91,16 @@ def NewDirec(request):
             direccion.country = request.POST.get("country", "")
             
             direccion.save()
-            print('creado')
+            print('Direccion creada')
+
+            cliente = Cliente()
+            interesado = request.session["interesado"]
+            for key in interesado:
+                cliente[key]= interesado[key]
+            cliente.save()
+            print('Cliente creado')
+
+            
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
         return redirect(reverse('registro'))
         
