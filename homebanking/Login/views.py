@@ -12,8 +12,6 @@ from Clientes.models import Cliente, Direccion
 
 # Create your views here.
 def landing(request):
-    """ if request.user.username:
-        return render(request, os.path.join("Clientes","home.html"), {'name' : request.user.username}) """
     return render(request, "landing.html")
 
 def registro(request):
@@ -52,22 +50,15 @@ def NewClient(request):
         client_form = client_form(data=request.POST)
 
         if client_form.is_valid():
-            interesado = {}
-            interesado["customer_name"]= request.POST.get("customer_name", "")
-            interesado["customer_surname"] = request.POST.get("customer_surname", "")
-            interesado["customer_dni"] = request.POST.get("customer_dni", "")
-            interesado["dob"] = request.POST.get("dob", "")
-            interesado["email"] = request.POST.get("email", "")
-            
-            interesado["Telefono"] = request.POST.get("telefono", "")
-            
-            request.session['interesado'] = interesado 
-            request.session.modified = True 
-                #{{ request.session.interesado }}   guardo el dato en la session y con este tag lo puedo referenciar desde el front
-            print( request.session["interesado"] )
+            interesado = {}  #almacena la informacion del aspirante y sera guardada en la session en curso.
 
-            #cliente.save()
-            #print('creado')
+            for field in cliente._meta.get_fields():
+                field = field.name #guardamos solo el nombre del campo
+                if request.POST.get(field, "") != "":
+                    interesado[field] = request.POST.get(field, "")
+            request.session['interesado'] = interesado 
+            request.session.modified = True  
+                #{{ request.session.interesado }}   guardo el dato en la session y con este tag lo puedo referenciar desde el front
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
         return redirect(reverse('nueva_direccion'))
         
@@ -84,21 +75,21 @@ def NewDirec(request):
         direc_form = direc_form(data=request.POST)
 
         if direc_form.is_valid():
-            direccion.street = request.POST.get("Calle", "")
-            direccion.number = request.POST.get("number", "")
-            direccion.city = request.POST.get("city", "")
-            direccion.province = request.POST.get("province", "")
-            direccion.country = request.POST.get("country", "")
-            
+            for field in direccion._meta.get_fields():
+                field = field.name #guardamos solo el nombre del campo
+                resultado = request.POST.get(field, "")
+                if resultado != "":
+                    setattr(direccion, field, resultado)   
             direccion.save()
-            print('Direccion creada')
+            print('Direccion creada: ', direccion)
 
             cliente = Cliente()
-            interesado = request.session["interesado"]
+            interesado = request.session["interesado"] 
+            print (interesado) 
             for key in interesado:
-                cliente[key]= interesado[key]
-            cliente.save()
-            print('Cliente creado')
+                setattr(cliente, key, interesado[key]) 
+            cliente.save() 
+            print('Cliente creado: ', cliente) 
 
             
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
