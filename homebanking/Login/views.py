@@ -3,7 +3,7 @@ import os
 from django.shortcuts import render, redirect
 from django.urls import reverse
 #para crear usuarios
-from django.contrib.auth.models import User
+from Login.models import Usuario
 
 # el form del registro
 from .forms import RegistroForm, ClienteForm, DireccionForm
@@ -22,21 +22,30 @@ def registro(request):
         registro_form = registro_form(data=request.POST)
         #Chequeamos que los datos son validos, de ser asi, los asignamos a una variable
         if registro_form.is_valid():
-            cliente_id= request.POST.get('cliente_id','')
-            email = request.POST.get('email','')
-            pwd = request.POST.get('pwd','')
-            print(cliente_id,email,pwd)
+            interesado = {}
+            for field in registro_form:
+                field = field.name
+                resultado = request.POST.get(field, "")
+                if resultado != "":
+                    interesado[field]= resultado  
+            
+            dni= interesado["dni"]
+            condicion = Cliente.objects.filter(customer_dni = dni)
+            if str(condicion) != "<QuerySet []>": 
+                cliente_id = request.POST.get('cliente_id','')
+                email = request.POST.get('email','')
+                pwd = request.POST.get('pwd','') 
+                print(cliente_id,email,pwd) 
 
-            user = User.objects.create_user(cliente_id, email, pwd)
-            user.save()
-            print('creado')
+                user = Usuario.objects.create_user(cliente_id, email, pwd)
+                user.save()
+                print('creado')
+            else:
+                return redirect(reverse('nuevo_cliente'))
         #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
         return redirect(reverse('login'))
     
-    return render(request, os.path.join("registration","registro.html"),{'form': registro_form})
-
-
-
+    return render(request, os.path.join("registration","registro.html"),{'form': registro_form}) 
 
 
 def NewClient(request):
