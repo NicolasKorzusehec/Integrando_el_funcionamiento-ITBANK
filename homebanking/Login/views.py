@@ -81,17 +81,18 @@ def NewDirec(request):
                 if resultado != "":
                     setattr(direccion, field, resultado)   
             direccion.save()
-            print('Direccion creada: ', direccion)
+            #print('Direccion creada: ', direccion)
 
             cliente = Cliente()
             interesado = request.session["interesado"] 
-            print (interesado) 
             for key in interesado:
                 setattr(cliente, key, interesado[key]) 
             cliente.save() 
-            print('Cliente creado: ', cliente) 
+            #print('Cliente creado: ', cliente) 
 
-            
+            request.session["interesado"] = "" 
+            request.session.modified = True   
+ 
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
         return redirect(reverse('registro'))
         
