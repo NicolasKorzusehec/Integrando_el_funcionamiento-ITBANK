@@ -33,7 +33,6 @@ class MarcaTarjeta(models.Model):
     brand_name = models.TextField()
 
     class Meta:
-        managed = False
         db_table = 'marca_tarjeta'
         verbose_name = "Marca de Tarjeta"
         verbose_name_plural = "Marcas de Tarjeta"

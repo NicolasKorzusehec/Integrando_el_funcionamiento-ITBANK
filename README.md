@@ -23,7 +23,7 @@ manage.py migrate sites --fake
 rejecutar las migraciones
 
 
-manage.py migrate Clientes --fake          
+manage.py migrate Prestamos --fake          
 
 
 
