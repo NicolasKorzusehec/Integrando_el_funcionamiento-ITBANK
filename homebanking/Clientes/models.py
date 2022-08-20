@@ -10,15 +10,15 @@ from django.db import models
 
 class Cliente(models.Model):
     customer_id = models.AutoField(primary_key=True)
-    customer_name = models.TextField()
-    customer_surname = models.TextField()  # This field type is a guess.
-    customer_dni = models.TextField(db_column='customer_DNI')  # Field name made lowercase.
-    dob = models.DateField(blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
-    telefono = models.IntegerField(blank=True, null=True)
-    customer_type = models.ForeignKey('TipoCliente', on_delete=models.CASCADE, blank=True, null=True)
-    customer_address = models.ForeignKey('Direccion', on_delete=models.CASCADE, blank=True, null=True)
-    branch = models.ForeignKey('Sucursal',  on_delete=models.CASCADE, blank=True, null=True)
+    customer_name = models.TextField(verbose_name='Nombre')
+    customer_surname = models.TextField(verbose_name='Apellido')  # This field type is a guess.
+    customer_dni = models.TextField(db_column='customer_DNI', verbose_name='DNI')  # Field name made lowercase.
+    dob = models.DateField(verbose_name='Fecha de nacimiento', blank=True, null=True)
+    email = models.EmailField(verbose_name='Email', blank=True, null=True)
+    telefono = models.IntegerField(verbose_name='Telefono', blank=True, null=True)
+    customer_type = models.ForeignKey('TipoCliente', verbose_name='Tipo de cliente', on_delete=models.CASCADE, blank=True, null=True)
+    customer_address = models.ForeignKey('Direccion', verbose_name='Direccion', on_delete=models.CASCADE, blank=True, null=True)
+    branch = models.ForeignKey('Sucursal', verbose_name='Sucursal', on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = 'cliente'
@@ -27,17 +27,17 @@ class Cliente(models.Model):
         ordering = ["-customer_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
-        return self.customer_name + " with DNI = " + self.customer_dni 
+        return self.customer_dni 
 
 
 
 class Direccion(models.Model):
     address_id = models.AutoField(primary_key=True)
-    street = models.TextField()
-    number = models.IntegerField()
-    city = models.TextField()
-    province = models.TextField()
-    country = models.TextField()
+    street = models.TextField(verbose_name='Calle')
+    number = models.IntegerField(verbose_name='Numero')
+    city = models.TextField(verbose_name='Ciudad')
+    province = models.TextField(verbose_name='Provincia')
+    country = models.TextField(verbose_name='Pais')
 
     class Meta:
         db_table = 'direccion'
@@ -50,12 +50,12 @@ class Direccion(models.Model):
 
 class Empleado(models.Model):
     employee_id = models.AutoField(primary_key=True)
-    employee_name = models.TextField()
-    employee_surname = models.TextField()
-    employee_hire_date = models.TextField()
-    employee_dni = models.TextField(db_column='employee_DNI')  # Field name made lowercase.
-    branch = models.ForeignKey("Sucursal",  on_delete=models.CASCADE, blank=True, null=True)
-    employee_address = models.ForeignKey(Direccion,  on_delete=models.CASCADE, blank=True, null=True)
+    employee_name = models.TextField(verbose_name='Nombre')
+    employee_surname = models.TextField(verbose_name='Apellido')
+    employee_hire_date = models.TextField(verbose_name='Fecha de contratacion')
+    employee_dni = models.TextField(db_column='employee_DNI', verbose_name='DNI')  # Field name made lowercase.
+    branch = models.ForeignKey("Sucursal", verbose_name='Sucursal',  on_delete=models.CASCADE, blank=True, null=True)
+    employee_address = models.ForeignKey(Direccion, verbose_name='Direccion', on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = 'empleado'

@@ -1,9 +1,10 @@
+from calendar import c
 import os
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
 #para crear usuarios
-from django.contrib.auth.models import User
+from Login.models import Usuario
 
 # el form del registro
 from .forms import RegistroForm, ClienteForm, DireccionForm
@@ -12,8 +13,6 @@ from Clientes.models import Cliente, Direccion
 
 # Create your views here.
 def landing(request):
-    """ if request.user.username:
-        return render(request, os.path.join("Clientes","home.html"), {'name' : request.user.username}) """
     return render(request, "landing.html")
 
 def registro(request):
@@ -24,21 +23,37 @@ def registro(request):
         registro_form = registro_form(data=request.POST)
         #Chequeamos que los datos son validos, de ser asi, los asignamos a una variable
         if registro_form.is_valid():
-            cliente_id= request.POST.get('cliente_id','')
-            email = request.POST.get('email','')
-            pwd = request.POST.get('pwd','')
-            print(cliente_id,email,pwd)
+            interesado = {}
+            for field in registro_form:
+                field = field.name
+                resultado = request.POST.get(field, "")
+                if resultado != "":
+                    interesado[field]= resultado  
+            
+            dni= interesado["dni"]
+            customer = Cliente.objects.get(customer_dni = dni)
+            if str(customer) != "":
+                cliente_id = request.POST.get('dni','')
+                email = request.POST.get('email','')
+                pwd = request.POST.get('pwd','') 
+                clave = request.POST.get("clave",'')
+                print(cliente_id,email,pwd) 
 
-            user = User.objects.create_user(cliente_id, email, pwd)
-            user.save()
-            print('creado')
+                user = Usuario.objects.create_user(cliente_id, email, pwd, clave)
+
+                user.first_name = customer.customer_name
+                user.last_name = customer.customer_surname
+                user.telefono = customer.telefono
+                user.customer = customer
+                
+                user.save()
+                print('creado')
+            else:
+                return redirect(reverse('nuevo_cliente'))
         #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
         return redirect(reverse('login'))
     
-    return render(request, os.path.join("registration","registro.html"),{'form': registro_form})
-
-
-
+    return render(request, os.path.join("registration","registro.html"),{'form': registro_form}) 
 
 
 def NewClient(request):
@@ -47,22 +62,20 @@ def NewClient(request):
 
     #validamos que ocurrio una peticion POST
     if request.method == "POST":
-        #Traemos los datos enviados
+        #No guardamos los datos aqui sino que los almacenamos en la session y los guardamos unicamente cuando tambien se haya creado 
         cliente = Cliente()
         client_form = client_form(data=request.POST)
 
         if client_form.is_valid():
-            cliente.customer_name = request.POST.get("customer_name", "")
-            cliente.customer_surname = request.POST.get("customer_surname", "")
-            cliente.customer_dni = request.POST.get("customer_dni", "")
-            cliente.dob = request.POST.get("dob", "")
-            
-            #print(name,email,content)
+            interesado = {}  #almacena la informacion del aspirante y sera guardada en la session en curso.
 
-            #contacto = Contacto.objects.all(name, email, content)
-
-            cliente.save()
-            print('creado')
+            for field in cliente._meta.get_fields():
+                field = field.name #guardamos solo el nombre del campo
+                if request.POST.get(field, "") != "":
+                    interesado[field] = request.POST.get(field, "")
+            request.session['interesado'] = interesado 
+            request.session.modified = True  
+                #{{ request.session.interesado }}   guardo el dato en la session y con este tag lo puedo referenciar desde el front
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
         return redirect(reverse('nueva_direccion'))
         
@@ -79,14 +92,27 @@ def NewDirec(request):
         direc_form = direc_form(data=request.POST)
 
         if direc_form.is_valid():
-            direccion.street = request.POST.get("Calle", "")
-            direccion.number = request.POST.get("number", "")
-            direccion.city = request.POST.get("city", "")
-            direccion.province = request.POST.get("province", "")
-            direccion.country = request.POST.get("country", "")
-            
+            for field in direccion._meta.get_fields():
+                field = field.name #guardamos solo el nombre del campo
+                resultado = request.POST.get(field, "")
+                if resultado != "":
+                    setattr(direccion, field, resultado)   
             direccion.save()
-            print('creado')
+            #print('Direccion creada: ', direccion)
+
+            cliente = Cliente()
+            interesado = request.session["interesado"] 
+            for key in interesado:
+                setattr(cliente, key, interesado[key]) 
+            
+            cliente.customer_address = direccion
+
+            cliente.save() 
+            #print('Cliente creado: ', cliente) 
+
+            request.session["interesado"] = "" 
+            request.session.modified = True   
+ 
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
         return redirect(reverse('registro'))
         

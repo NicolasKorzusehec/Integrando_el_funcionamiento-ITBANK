@@ -6,7 +6,7 @@
         <span class="disabled fs-1" id="logo">ITBANK</span>
         <a id="profile" class="nav-btn ms-auto" type="button" title="Menú">
             <!--default view-->
-            <span>{{name}}</span>
+            <span>{{user.first_name}} {{user.last_name}}</span>
             &nbsp;
             <i class="fa-regular fa-circle-user"></i>
             <a href="{% url 'logout' %}">Salir</a>
