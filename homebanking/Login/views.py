@@ -1,3 +1,4 @@
+from calendar import c
 import os
 
 from django.shortcuts import render, redirect
@@ -30,9 +31,8 @@ def registro(request):
                     interesado[field]= resultado  
             
             dni= interesado["dni"]
-            condicion = Cliente.objects.filter(customer_dni = dni)
-            if str(condicion) != "<QuerySet []>":
-                print(condicion) 
+            customer = Cliente.objects.get(customer_dni = dni)
+            if str(customer) != "":
                 cliente_id = request.POST.get('dni','')
                 email = request.POST.get('email','')
                 pwd = request.POST.get('pwd','') 
@@ -40,6 +40,12 @@ def registro(request):
                 print(cliente_id,email,pwd) 
 
                 user = Usuario.objects.create_user(cliente_id, email, pwd, clave)
+
+                user.first_name = customer.customer_name
+                user.last_name = customer.customer_surname
+                user.telefono = customer.telefono
+                user.customer = customer
+                
                 user.save()
                 print('creado')
             else:
@@ -98,6 +104,9 @@ def NewDirec(request):
             interesado = request.session["interesado"] 
             for key in interesado:
                 setattr(cliente, key, interesado[key]) 
+            
+            cliente.customer_address = direccion
+
             cliente.save() 
             #print('Cliente creado: ', cliente) 
 

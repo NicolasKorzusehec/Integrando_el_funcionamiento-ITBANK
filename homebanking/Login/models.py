@@ -51,7 +51,7 @@ class Usuario(AbstractUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['password']
+    REQUIRED_FIELDS = ['email', 'password', 'clave']
     
     objects = MyUserManager()
     
