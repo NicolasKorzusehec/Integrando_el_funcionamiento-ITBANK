@@ -39,7 +39,7 @@ def registro(request):
                 clave = request.POST.get("clave",'')
                 print(cliente_id,email,pwd) 
 
-                user = Usuario.objects.create_user(cliente_id, email, pwd)
+                user = Usuario.objects.create_user(cliente_id, email, pwd, clave)
                 user.save()
                 print('creado')
             else:
