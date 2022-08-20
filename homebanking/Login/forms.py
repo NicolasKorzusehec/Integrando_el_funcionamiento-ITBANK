@@ -1,7 +1,7 @@
 ##app_prueba/forms.py
 from django import forms
 
-from Clientes.models import Direccion
+from Clientes.models import TipoCliente
 
 #Impacta un nuevo usuario en la BD
 class RegistroForm(forms.Form):
@@ -10,7 +10,6 @@ class RegistroForm(forms.Form):
     email = forms.CharField(label="Email", required=True)
     pwd = forms.CharField(label="Contraseña", required=True)
     clave = forms.IntegerField(label="Clave (4 digitos)", required = True)
-
 
 
 #Impacta un nuevo Cliente en la BD
@@ -22,14 +21,14 @@ class ClienteForm(forms.Form):
     email = forms.EmailField(label="Email", required=True)
     telefono = forms.IntegerField(label="Telefono", required=True)
 
-    """
-    customer_type = forms.IntegerField(label="customer_type", required=True)
-    customer_address = forms.IntegerField(label="customer_type", required=True)
-    branch = forms.IntegerField(label="customer_type", required=True)
+    tipocliente = TipoCliente.objects.all()
+    tipos = []
+    pos = 1
+    for tipo in tipocliente: 
+        tipos.append((pos, tipo.type_name))
+        pos += 1 
 
-    lista=[('A','30 Cuotas'),  ('B','60 Cuotas'), ('C', '90 Cuotas')]
-    item_lista= forms.CharField(label='Que opciones elegis?', widget=forms.Select(choices=lista))"""
-
+    customer_type= forms.IntegerField(label='Que tipo de cliente eres?', required=True, widget=forms.Select(choices=tipos))
 
 
 class DireccionForm(forms.Form):
