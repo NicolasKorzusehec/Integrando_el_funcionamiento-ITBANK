@@ -22,7 +22,7 @@ class Prestamo(models.Model):
         ordering = ["-loan_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
-        return self.customer.customer_name + " de tipo: " #+ self.loan_type
+        return str(self.loan_id)
 
 
 class TipoPrestamo(models.Model):

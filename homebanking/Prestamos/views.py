@@ -2,6 +2,8 @@ import os
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+from Clientes.models import Cliente
+
 from .forms import PrestamoForm
 from .models import Prestamo, TipoPrestamo
 from Login.models import Usuario
@@ -30,10 +32,8 @@ def Prestamos(request):
                         setattr(prestamo, field, tipo) 
                     else:
                         setattr(prestamo, field, value)  
-
+            
             prestamo.customer = request.user.customer
-
-            print(prestamo)
             prestamo.save()
         return redirect(reverse('prestamos')) 
 
