@@ -18,8 +18,8 @@ class Prestamo(models.Model):
     class Meta:
         db_table = 'prestamo'
         verbose_name = "Prestamo"
-        verbose_name_plural = "Prestamos"
-        ordering = ["-loan_date"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
+        verbose_name_plural = "Prestamos" 
+        ordering = ["-loan_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
         return self.customer.customer_name + " de tipo: " #+ self.loan_type

@@ -1,4 +1,3 @@
-from calendar import c
 import os
 
 from django.shortcuts import render, redirect

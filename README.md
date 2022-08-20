@@ -89,3 +89,6 @@ https://docs.djangoproject.com/en/dev/ref/validators/#regexvalidator
 
 # asignar valores a una instancia de un modelo partiendo de claves dinamicas, como un iterador
 https://stackoverflow.com/questions/18759476/how-to-assign-items-inside-a-model-object-with-django
+
+
+Se puede llamar al usuario en una view sin necesidad de un formulario si simplemente esta autotenticado en la pagina en cuestion, se recurre al atributo request.user que contiene el usuario activo.
