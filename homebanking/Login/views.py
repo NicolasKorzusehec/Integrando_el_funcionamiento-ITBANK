@@ -1,10 +1,10 @@
-from calendar import c
 import os
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
 #para crear usuarios
 from Login.models import Usuario
+from Clientes.models import TipoCliente
 
 # el form del registro
 from .forms import RegistroForm, ClienteForm, DireccionForm
@@ -73,6 +73,7 @@ def NewClient(request):
                 field = field.name #guardamos solo el nombre del campo
                 if request.POST.get(field, "") != "":
                     interesado[field] = request.POST.get(field, "")
+            print (interesado)
             request.session['interesado'] = interesado 
             request.session.modified = True  
                 #{{ request.session.interesado }}   guardo el dato en la session y con este tag lo puedo referenciar desde el front
@@ -103,7 +104,11 @@ def NewDirec(request):
             cliente = Cliente()
             interesado = request.session["interesado"] 
             for key in interesado:
-                setattr(cliente, key, interesado[key]) 
+                if key == "customer_type":
+                    tipo = TipoCliente.objects.get(pk = interesado[key])
+                    setattr(cliente, key, tipo) 
+                else: 
+                    setattr(cliente, key, interesado[key])  
             
             cliente.customer_address = direccion
 
