@@ -5,6 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from argparse import BooleanOptionalAction
 from django.db import models
 
 
@@ -93,6 +94,7 @@ class TipoCliente(models.Model):
     withdraw_daily_max = models.IntegerField(blank=True, null=True)
     transfer_comission = models.IntegerField(blank=True, null=True)
     max_travel_reception = models.IntegerField(blank=True, null=True)
+    preapproval_amount = models.IntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'tipo_cliente'
