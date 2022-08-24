@@ -13,6 +13,7 @@ class Prestamo(models.Model):
     loan_type = models.ForeignKey("TipoPrestamo", on_delete=models.CASCADE, blank=True, null=True)
     loan_date = models.DateField()
     loan_total = models.IntegerField()
+    loan_preapproval = models.IntegerField(null=True,blank=True)
     customer = models.ForeignKey(Cliente, on_delete=models.CASCADE,  blank=True, null=True)
 
     class Meta:

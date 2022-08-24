@@ -37,6 +37,9 @@
                 {{form.as_p}}
             </table>
             <input type="submit" value="solicitar"/>
+            <p>EL monto de preaprobacion de su prestamo se calcula en funcion del tipo de cliente que es.</p>
+            <p>En su caso usted es un cliente de tipo: {{user.customer.customer_type}}</p>
+            <p style="color: red;">Por esta condicion cuenta con un monto de preaprobacion de ${{user.customer.customer_type.preapproval_amount}}</p>
         </form>
     </div>
 
