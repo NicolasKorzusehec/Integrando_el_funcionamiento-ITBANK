@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response 
 from rest_framework import status
 
-# from rest_framework import permissions
+from rest_framework import permissions
 # from rest_framework.decorators import api_view
 # from rest_framework.reverse import reverse
 
@@ -28,6 +28,7 @@ from api_sprint8.serializers import SucursalSerializer
 # Create your views here.
 
 class ClienteDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request, pk):
         cliente = Cliente.objects.filter(pk=pk).first()
         serializer = ClienteSerializer(cliente)
@@ -36,6 +37,7 @@ class ClienteDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 class ClienteList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request): 
         clientes = Cliente.objects.all().order_by('customer_id') 
         serializer = ClienteSerializer(clientes, many=True) 
@@ -43,6 +45,7 @@ class ClienteList(APIView):
     
 # Está filtrando por el account id y no por el customer id
 class CuentaDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request, pk):
         cuenta = Cuenta.objects.filter(pk=pk).first()
         serializer = CuentaSerializer(cuenta)
@@ -51,6 +54,7 @@ class CuentaDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
     
 class PrestamoDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request, pk):
         prestamo = Prestamo.objects.filter(pk=pk).first()
         serializer = PrestamoSerializer(prestamo)
@@ -68,6 +72,7 @@ class PrestamoDetail(APIView):
     
 # Hay que obtener la sucursal a travéz del cliente
 class PrestamoList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request, branch): 
         prestamos = Prestamo.objects.filter(customer_id=branch).order_by('loan_total') 
         serializer = PrestamoSerializer(prestamos, many=True) 
@@ -81,12 +86,14 @@ class PrestamoList(APIView):
     #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class TarjetasList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request, pk):
         tarjetas = Tarjeta.objects.filter(customer_id=pk).order_by('card_id') 
         serializer = TarjetaSerializer(tarjetas, many=True) 
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class DireccionDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def update(self, instance, validated_data):
         instance.street = validated_data.get('street', instance.street)
         instance.number = validated_data.get('number', instance.number)
