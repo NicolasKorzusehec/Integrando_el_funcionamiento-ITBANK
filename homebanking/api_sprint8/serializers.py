@@ -28,4 +28,13 @@ class TarjetaSerializer(serializers.ModelSerializer):
         model = Tarjeta
         fields = '__all__'
         
-
+class DireccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Direccion
+        fields = '__all__'
+        read_only_fields = ("address_id",)
+        
+class SucursalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sucursal
+        fields = '__all__'

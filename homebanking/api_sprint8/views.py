@@ -20,6 +20,11 @@ from api_sprint8.serializers import PrestamoSerializer
 from Tarjetas.models import Tarjeta 
 from api_sprint8.serializers import TarjetaSerializer 
 
+from Clientes.models import Direccion 
+from api_sprint8.serializers import DireccionSerializer
+
+from Clientes.models import Sucursal 
+from api_sprint8.serializers import SucursalSerializer
 # Create your views here.
 
 class ClienteDetail(APIView):
@@ -53,6 +58,14 @@ class PrestamoDetail(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
     
+    def delete(self, request, pk): 
+        prestamo = Prestamo.objects.filter(pk=pk).first() 
+        if prestamo: 
+            serializer = PrestamoSerializer(prestamo) 
+            prestamo.delete() 
+            return Response(serializer.data, status=status.HTTP_200_OK) 
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
 # Hay que obtener la sucursal a travéz del cliente
 class PrestamoList(APIView):
     def get(self, request, branch): 
@@ -60,8 +73,31 @@ class PrestamoList(APIView):
         serializer = PrestamoSerializer(prestamos, many=True) 
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+    # def post(self, request, format=None): 
+    #     serializer = PrestamoSerializer(data=request.data) 
+    #     if serializer.is_valid(): 
+    #         serializer.save() 
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED) 
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 class TarjetasList(APIView):
     def get(self, request, pk):
         tarjetas = Tarjeta.objects.filter(customer_id=pk).order_by('card_id') 
         serializer = TarjetaSerializer(tarjetas, many=True) 
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class DireccionDetail(APIView):
+    def update(self, instance, validated_data):
+        instance.street = validated_data.get('street', instance.street)
+        instance.number = validated_data.get('number', instance.number)
+        instance.city = validated_data.get('city', instance.city)
+        instance.province = validated_data.get('province', instance.province)
+        instance.country = validated_data.get('country', instance.country)
+        instance.save()
+        return instance
+        
+class SucursalList(APIView):
+    def get(self, request):
+        sucursales = Sucursal.objects.all().order_by('branch_id') 
+        serializer = SucursalSerializer(sucursales, many=True) 
         return Response(serializer.data, status=status.HTTP_200_OK)
