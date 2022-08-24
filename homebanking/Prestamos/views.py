@@ -7,6 +7,7 @@ from Clientes.models import Cliente
 from .forms import PrestamoForm
 from .models import Prestamo, TipoPrestamo
 from Login.models import Usuario
+from Cuentas.models import Cuenta
 #importamos el decorador
 from django.contrib.auth.decorators import login_required
 
@@ -33,8 +34,28 @@ def Prestamos(request):
                     else:
                         setattr(prestamo, field, value)  
             
+            prestamo.loan_preapproval = request.user.customer.customer_type.preapproval_amount
+
             prestamo.customer = request.user.customer
             prestamo.save()
+
+
+            cuenta = Cuenta.objects.get(customer_id = request.user.customer)
+            if prestamo.loan_preapproval < prestamo.loan.total:
+                request.session["estado_prestamo"] = "El prestamo fue preaprobado, se le notificara como continuar el tramite para alcanzar la totalidad del prestamo solicitado y la documnentacion que debera presentar."
+
+                cuenta.balance = cuenta.balance + prestamo.loan_preapproval
+                cuenta.save()
+
+                request.session.modified = True
+            elif prestamo.loan_preapproval > prestamo.loan.total:
+                request.session["estado_prestamo"] = "El prestamo fue aprobado correctamente."
+                request.session.modified = True
+
+                cuenta.balance = cuenta.balance + prestamo.loan_total
+                cuenta.save()
+            
+            #Impactamos este monto en la cuenta en pesos del cliente.
         return redirect(reverse('prestamos')) 
 
 
