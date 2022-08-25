@@ -23,10 +23,8 @@ class ClienteForm(forms.Form):
 
     tipocliente = TipoCliente.objects.all()
     tipos = []
-    pos = 1
     for tipo in tipocliente: 
-        tipos.append((pos, tipo.type_name))
-        pos += 1 
+        tipos.append((tipo.pk, tipo.type_name))
 
     customer_type= forms.IntegerField(label='Que tipo de cliente eres?', required=True, widget=forms.Select(choices=tipos))
 
