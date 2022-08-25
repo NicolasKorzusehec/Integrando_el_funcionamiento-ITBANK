@@ -134,6 +134,7 @@ Todos los formularios cuentan con proteccion `csfr`. Al mismo tiempo las vistas 
 
   
 ## Aclaraciones y acotaciones
+En el archivo [Referencia DJANGO](/Referencia%20django.md) se puede visualizar el desarrollo de un proyecto `django` al cual recurrimos en reiteradas ocasion para diversos desarrollos realizados en el proyecto
 
 ### Solucion de errores
 
