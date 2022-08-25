@@ -41,17 +41,20 @@ def Prestamos(request):
 
 
             cuenta = Cuenta.objects.get(customer_id = request.user.customer)
-            if prestamo.loan_preapproval < prestamo.loan.total:
+            monto_preaprobado = int(prestamo.loan_preapproval) 
+            monto_total = int(prestamo.loan_total)
+            if monto_preaprobado < monto_total:
                 request.session["estado_prestamo"] = "El prestamo fue preaprobado, se le notificara como continuar el tramite para alcanzar la totalidad del prestamo solicitado y la documnentacion que debera presentar."
 
                 cuenta.balance = cuenta.balance + prestamo.loan_preapproval
+                print(cuenta.balance)
                 cuenta.save()
 
                 request.session.modified = True
             elif prestamo.loan_preapproval > prestamo.loan.total:
                 request.session["estado_prestamo"] = "El prestamo fue aprobado correctamente."
                 request.session.modified = True
-
+ 
                 cuenta.balance = cuenta.balance + prestamo.loan_total
                 cuenta.save()
             

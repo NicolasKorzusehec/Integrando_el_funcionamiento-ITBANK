@@ -26,15 +26,17 @@ urlpatterns = [
     path('', login_views.landing, name="landing"),
     path('inicio/', clients_views.inicio, name="inicio"),    
     path('nuevo_cliente/', login_views.NewClient, name="nuevo_cliente"),
+    path('nueva_cuenta/', login_views.NewAccount, name="nueva_cuenta"),
     path('nueva_direccion/', login_views.NewDirec, name="nueva_direccion"),
     path('prestamos/', loan_views.Prestamos, name="prestamos"),
 
     path('admin/', admin.site.urls),
 
-
     #Agregamos las direcciones de autenticacion (login, logout, gestion password)
     path('accounts/',include('django.contrib.auth.urls')),
     path('accounts/registro', login_views.registro,name = "registro"),
+    
+    path('api/', include('api_sprint8.urls')),
   
 ]
 

@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'Login',
     'Prestamos',
     'Tarjetas',
+    'rest_framework',
+    'api_sprint8',
 ]
 
 MIDDLEWARE = [
