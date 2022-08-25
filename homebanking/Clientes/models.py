@@ -94,9 +94,9 @@ class TipoCliente(models.Model):
     checkbook_amount = models.IntegerField()
     box_dollar = models.TextField(blank=True, null=True)
     box_peso = models.TextField(blank=True, null=True)
-    withdraw_daily_max = models.IntegerField(blank=True, null=True)
-    transfer_comission = models.IntegerField(blank=True, null=True)
-    max_travel_reception = models.IntegerField(blank=True, null=True)
+    withdraw_daily_max = models.TextField(blank=True, null=True)
+    transfer_comission = models.TextField(blank=True, null=True)
+    max_travel_reception = models.TextField(blank=True, null=True)
     preapproval_amount = models.IntegerField(blank=True, null=True)
 
     class Meta:
