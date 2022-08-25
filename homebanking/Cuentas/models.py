@@ -12,8 +12,8 @@ class Cuenta(models.Model):
     account_id = models.AutoField(primary_key=True)
     balance = models.IntegerField()
     iban = models.TextField()
-    account_type = models.TextField(blank=True, null=True)
-    customer = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=True, null=True)
+    account_type = models.ForeignKey("TipoCuenta", on_delete=models.CASCADE, blank=True, null=True)
+    customer = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=True, null=True) 
 
     class Meta:
         db_table = 'cuenta'
@@ -22,8 +22,22 @@ class Cuenta(models.Model):
         ordering = ["-account_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
-        return self.customer.customer_name + " de tipo: " + self.account_type
+        #return str(self.account_id)
+        return self.customer.customer_name + " de tipo: " + self.account_type.account_name 
 
+
+class TipoCuenta(models.Model):
+    type_id = models.AutoField (primary_key=True) 
+    account_name = models.TextField()
+
+    class Meta:
+        db_table = 'tipo_cuenta'
+        verbose_name = "Tipo de cuenta"
+        verbose_name_plural = "Tipo de cuentas"
+        ordering = ["-type_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
+
+    def __str__(self): 
+        return self.account_name
 
 
 class Movimientos(models.Model):

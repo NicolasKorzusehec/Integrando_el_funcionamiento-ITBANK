@@ -1,7 +1,8 @@
 ##app_prueba/forms.py
 from django import forms
 
-from Clientes.models import TipoCliente
+from Clientes.models import TipoCliente, Sucursal
+from Cuentas.models import TipoCuenta
 
 #Impacta un nuevo usuario en la BD
 class RegistroForm(forms.Form):
@@ -22,13 +23,30 @@ class ClienteForm(forms.Form):
     telefono = forms.IntegerField(label="Telefono", required=True)
 
     tipocliente = TipoCliente.objects.all()
-    tipos = []
-    pos = 1
+    typescustomer = []
     for tipo in tipocliente: 
-        tipos.append((pos, tipo.type_name))
-        pos += 1 
+        typescustomer.append((tipo.pk, tipo.type_name))
+    customer_type= forms.IntegerField(label='Que tipo de cliente eres?', required=True, widget=forms.Select(choices=typescustomer))
 
-    customer_type= forms.IntegerField(label='Que tipo de cliente eres?', required=True, widget=forms.Select(choices=tipos))
+
+    sucursal = Sucursal.objects.all()
+    sucursales = []
+    for suc in sucursal: 
+        sucursales.append((suc.pk, suc.branch_name))
+    branch= forms.IntegerField(label='En que sucursal te adheriste?', required=True, widget=forms.Select(choices=sucursales)) 
+
+
+class CuentaForm(forms.Form):
+    balance = forms.IntegerField(label="Balance", required=True)
+    iban = forms.CharField(label="IBAN", required=True)
+
+    tipocuenta = TipoCuenta.objects.all()
+    typesaccount = []
+    for tipo in tipocuenta: 
+        typesaccount.append((tipo.pk, tipo.account_name))
+
+    account_type= forms.IntegerField(label='Que tipo de cuenta quieres?', required=True, widget=forms.Select(choices=typesaccount))
+
 
 
 class DireccionForm(forms.Form):
