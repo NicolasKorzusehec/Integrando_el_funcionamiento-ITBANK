@@ -31,6 +31,13 @@ class ClienteForm(forms.Form):
     customer_type= forms.IntegerField(label='Que tipo de cliente eres?', required=True, widget=forms.Select(choices=tipos))
 
 
+class CuentaForm(forms.Form):
+    balance = forms.IntegerField(label="Balance", required=True)
+    iban = forms.CharField(label="IBAN", required=True)
+    account_type = forms.CharField(label="Tipo de cuenta", required=True)  # Field name made lowercase.
+
+
+
 class DireccionForm(forms.Form):
     street = forms.CharField(label="Calle", required=True)
     number = forms.IntegerField(label="Numero", required=True)
