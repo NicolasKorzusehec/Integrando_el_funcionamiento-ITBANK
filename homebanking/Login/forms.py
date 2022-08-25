@@ -2,6 +2,7 @@
 from django import forms
 
 from Clientes.models import TipoCliente
+from Cuentas.models import TipoCuenta
 
 #Impacta un nuevo usuario en la BD
 class RegistroForm(forms.Form):
@@ -22,17 +23,23 @@ class ClienteForm(forms.Form):
     telefono = forms.IntegerField(label="Telefono", required=True)
 
     tipocliente = TipoCliente.objects.all()
-    tipos = []
+    typescustomer = []
     for tipo in tipocliente: 
-        tipos.append((tipo.pk, tipo.type_name))
+        typescustomer.append((tipo.pk, tipo.type_name))
 
-    customer_type= forms.IntegerField(label='Que tipo de cliente eres?', required=True, widget=forms.Select(choices=tipos))
+    customer_type= forms.IntegerField(label='Que tipo de cliente eres?', required=True, widget=forms.Select(choices=typescustomer))
 
 
 class CuentaForm(forms.Form):
     balance = forms.IntegerField(label="Balance", required=True)
     iban = forms.CharField(label="IBAN", required=True)
-    account_type = forms.CharField(label="Tipo de cuenta", required=True)  # Field name made lowercase.
+
+    tipocuenta = TipoCuenta.objects.all()
+    typesaccount = []
+    for tipo in tipocuenta: 
+        typesaccount.append((tipo.pk, tipo.account_name))
+
+    account_type= forms.IntegerField(label='Que tipo de cuenta quieres?', required=True, widget=forms.Select(choices=typesaccount))
 
 
 

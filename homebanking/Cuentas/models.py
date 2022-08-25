@@ -22,7 +22,8 @@ class Cuenta(models.Model):
         ordering = ["-account_id"] #este campo indica que ordenemos los registros por fecha de creado en forma descendente
 
     def __str__(self): 
-        return self.customer.customer_name + " de tipo: " + self.account_type.account_name
+        #return str(self.account_id)
+        return self.customer.customer_name + " de tipo: " + self.account_type.account_name 
 
 
 class TipoCuenta(models.Model):

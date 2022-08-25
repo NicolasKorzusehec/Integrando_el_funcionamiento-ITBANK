@@ -7,7 +7,7 @@ from Login.models import Usuario
 
 # el form del registro
 from Clientes.models import Cliente, Direccion,TipoCliente
-from Cuentas.models import Cuenta
+from Cuentas.models import Cuenta, TipoCuenta
 from .forms import RegistroForm, ClienteForm, DireccionForm, CuentaForm
 
 
@@ -142,7 +142,20 @@ def NewDirec(request):
             cliente.save() 
             #print('Cliente creado: ', cliente) 
 
+            cuenta = Cuenta()
+            cuenta_interesado = request.session["cuenta_interesado"] 
+            for key in cuenta_interesado:
+                if key == "account_type":
+                    tipo = TipoCuenta.objects.get(pk = cuenta_interesado[key])
+                    setattr(cuenta, key, tipo)  
+                else: 
+                    setattr(cuenta, key, cuenta_interesado[key])  
+            cuenta.customer = cliente
+            cuenta.save() 
+
+
             request.session["interesado"] = "" 
+            request.session["cuenta_interesado"] = "" 
             request.session.modified = True   
  
             #En lugar de renderizar el template de prestamo hacemos un redireccionamiento enviando una variable OK
