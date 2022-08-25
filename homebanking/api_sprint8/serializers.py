@@ -43,3 +43,13 @@ class ClienteTipoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TipoCliente
         fields = '__all__'
+
+class PrestamoTipoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = TipoPrestamo
+        fields = '__all__'
+        
+class MarcaTarjetaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = MarcaTarjeta
+        fields = '__all__'

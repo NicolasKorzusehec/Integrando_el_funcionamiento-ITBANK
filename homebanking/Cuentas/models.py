@@ -29,7 +29,7 @@ class Cuenta(models.Model):
 class Movimientos(models.Model):
     transaction_id = models.AutoField(primary_key=True)
     account = models.ForeignKey(Cuenta, on_delete=models.CASCADE, blank=True, null=True)
-    operation_type = models.TextField()
+    operation_type = models.TextField(null=True, blank=True)
     amount = models.IntegerField()
     changed_at = models.TextField()
 

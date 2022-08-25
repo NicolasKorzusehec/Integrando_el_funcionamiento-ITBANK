@@ -16,4 +16,8 @@ urlpatterns = [
         
         path('clientes-tipo/<int:pk>/', views.ClienteTipoDetail.as_view(), name='tipocliente-detail'),
         path('sucursales/<int:pk>/', views.SucursalDetail.as_view(), name='sucursal-detail'),
+        path('prestamo-tipo/<int:pk>/', views.TipoPrestamoDetail.as_view(), name='tipoprestamo-detail'),
+        path('tarjeta/<int:pk>/', views.TarjetasDetail.as_view(), name='tarjeta-detail'),
+        path('marca-tarjeta/<int:pk>/', views.MarcaTarjetaDetail.as_view(), name='marcatarjeta-detail'),
+        
     ]
