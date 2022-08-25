@@ -34,6 +34,9 @@ from api_sprint8.serializers import PrestamoTipoSerializer
 
 from Tarjetas.models import MarcaTarjeta 
 from api_sprint8.serializers import MarcaTarjetaSerializer
+
+from Cuentas.models import TipoCuenta
+from api_sprint8.serializers import TipoCuentaSerializer
 # Create your views here.
 
 class ClienteDetail(APIView):
@@ -62,6 +65,13 @@ class CuentaDetail(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK) 
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
     
+class CuentaList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    def get(self, request): 
+        cuentas = Cuenta.objects.all().order_by('customer_id') 
+        serializer = CuentaSerializer(cuentas, many=True, context={'request': request}) 
+        return Response(serializer.data, status=status.HTTP_200_OK)    
+    
 class PrestamoDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request, pk):
@@ -79,21 +89,32 @@ class PrestamoDetail(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK) 
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-# Hay que obtener la sucursal a travéz del cliente
+
 class PrestamoList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    def get(self, request, branch): 
-        prestamos = Prestamo.objects.filter(customer_id=branch).order_by('loan_total') 
+    def get(self, request): 
+        prestamos = Prestamo.objects.all().order_by('loan_id') 
         serializer = PrestamoSerializer(prestamos, many=True, context={'request': request}) 
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request, format=None): 
-        serializer = PrestamoSerializer(data=request.data) 
+        serializer = PrestamoSerializer(data=request.data, context={'request': request}) 
         if serializer.is_valid(): 
             serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED) 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+class PrestamoSucursalList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    def get(self, request, pk): 
+        sucursal = Sucursal.objects.filter(pk=pk).first()
+        asociados = Cliente.objects.filter(branch = sucursal).order_by('customer_id')
+        prestamos = []
+        for cliente in asociados:
+            prestamos += Prestamo.objects.filter(customer = cliente)
+        serializer = PrestamoSerializer(prestamos, many=True, context={'request': request}) 
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class TarjetasList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request, pk):
@@ -103,20 +124,26 @@ class TarjetasList(APIView):
     
 class DireccionDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    def update(self, instance, validated_data):
-        instance.street = validated_data.get('street', instance.street)
-        instance.number = validated_data.get('number', instance.number)
-        instance.city = validated_data.get('city', instance.city)
-        instance.province = validated_data.get('province', instance.province)
-        instance.country = validated_data.get('country', instance.country)
-        instance.save()
-        return instance
+    
+    def put(self, request, pk): 
+        direccion = Direccion.objects.filter(pk=pk).first() 
+        serializer = DireccionSerializer(direccion, data=request.data, context={'request': request}) 
+        if serializer.is_valid(): 
+            serializer.save()
+            return Response(serializer.data) 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request, pk):
         direccion = Direccion.objects.filter(pk=pk).order_by('address_id') 
         serializer = DireccionSerializer(direccion, many=True,context={'request': request}) 
         return Response(serializer.data, status=status.HTTP_200_OK)
-        
+
+class DireccionList(APIView):
+    def get(self, request):
+        direcciones = Direccion.objects.all().order_by('address_id') 
+        serializer = DireccionSerializer(direcciones, many=True, context={'request': request}) 
+        return Response(serializer.data, status=status.HTTP_200_OK)
+   
 class SucursalList(APIView):
     def get(self, request):
         sucursales = Sucursal.objects.all().order_by('branch_id') 
@@ -127,7 +154,10 @@ class SucursalList(APIView):
 def api_root(request, format=None):
     return Response({ 
                      'clientes': reverse('clientes-list', request=request, format=format), 
-                     'sucursales': reverse('sucursales-list', request=request, format=format) 
+                     'cuentas': reverse('cuentas-list', request=request, format=format),
+                     'prestamos': reverse('prestamos-list', request=request, format=format),
+                     'direcciones': reverse('direccion-list', request=request, format=format),
+                     'sucursales': reverse('sucursales-list', request=request, format=format)
                      })
     
 class SucursalDetail(APIView):
@@ -159,3 +189,12 @@ class MarcaTarjetaDetail(APIView):
         marca = MarcaTarjeta.objects.filter(pk=pk).order_by('card_id') 
         serializer = MarcaTarjetaSerializer(marca, many=True, context={'request': request}) 
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class TipoCuentaDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    def get(self, request, pk):
+        cuenta_tipo = TipoCuenta.objects.filter(pk=pk).first()
+        serializer = TipoCuentaSerializer(cuenta_tipo, context={'request': request})
+        if cuenta_tipo:
+            return Response(serializer.data, status=status.HTTP_200_OK) 
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
