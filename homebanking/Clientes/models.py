@@ -17,8 +17,11 @@ class Cliente(models.Model):
     dob = models.DateField(verbose_name='Fecha de nacimiento', blank=True, null=True)
     email = models.EmailField(verbose_name='Email', blank=True, null=True)
     telefono = models.IntegerField(verbose_name='Telefono', blank=True, null=True)
+
     customer_type = models.ForeignKey('TipoCliente', verbose_name='Tipo de cliente', on_delete=models.CASCADE, blank=True, null=True)
+
     customer_address = models.ForeignKey('Direccion', verbose_name='Direccion', on_delete=models.CASCADE, blank=True, null=True)
+
     branch = models.ForeignKey('Sucursal', verbose_name='Sucursal', on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
@@ -80,7 +83,7 @@ class Sucursal(models.Model):
         ordering = ["-branch_id"]
 
     def __str__(self): 
-        return self.branch_name #+ " with id = " + str(self.branch_id)
+        return self.branch_name + " with id = " + str(self.branch_id)
 
 class TipoCliente(models.Model):
     customer_type_id = models.AutoField(primary_key=True)

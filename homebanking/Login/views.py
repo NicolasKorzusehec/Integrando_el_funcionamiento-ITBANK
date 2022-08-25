@@ -6,7 +6,7 @@ from django.urls import reverse
 from Login.models import Usuario
 
 # el form del registro
-from Clientes.models import Cliente, Direccion,TipoCliente
+from Clientes.models import Cliente, Direccion, TipoCliente, Sucursal
 from Cuentas.models import Cuenta, TipoCuenta
 from .forms import RegistroForm, ClienteForm, DireccionForm, CuentaForm
 
@@ -120,7 +120,7 @@ def NewDirec(request):
         direccion = Direccion()
         direc_form = direc_form(data=request.POST)
 
-        if direc_form.is_valid():
+        if direc_form.is_valid(): 
             for field in direccion._meta.get_fields():
                 field = field.name #guardamos solo el nombre del campo
                 resultado = request.POST.get(field, "")
@@ -132,22 +132,28 @@ def NewDirec(request):
             cliente = Cliente()
             interesado = request.session["interesado"] 
             for key in interesado:
+                print(key)
                 if key == "customer_type":
-                    tipo = TipoCliente.objects.get(pk = interesado[key])
-                    setattr(cliente, key, tipo) 
-                else: 
+                    customertype = TipoCliente.objects.get(pk = interesado[key])
+                    print(cliente, key, customertype)
+                    setattr(cliente, key, customertype) 
+                elif key == "branch":
+                    branch = Sucursal.objects.get(pk = interesado[key])
+                    cliente.branch = branch 
+                else:  
+                    print("normal", cliente, key, interesado[key]) 
                     setattr(cliente, key, interesado[key])  
-            cliente.customer_address = direccion
-            
+            #cliente.customer_address = direccion 
+            cliente.customer_address = direccion 
             cliente.save() 
-            #print('Cliente creado: ', cliente) 
+            print('Cliente creado: ', cliente)   
 
             cuenta = Cuenta()
             cuenta_interesado = request.session["cuenta_interesado"] 
-            for key in cuenta_interesado:
+            for key in cuenta_interesado: 
                 if key == "account_type":
-                    tipo = TipoCuenta.objects.get(pk = cuenta_interesado[key])
-                    setattr(cuenta, key, tipo)  
+                    accounttype = TipoCuenta.objects.get(pk = cuenta_interesado[key])
+                    setattr(cuenta, key, accounttype)  
                 else: 
                     setattr(cuenta, key, cuenta_interesado[key])  
             cuenta.customer = cliente
