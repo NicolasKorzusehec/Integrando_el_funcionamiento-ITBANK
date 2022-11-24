@@ -93,6 +93,7 @@ Tener en cuenta que de tener problemas con el paquete pip y su no reconocimiento
 
     ``` Desde la terminal cmd
     pip install virtualenvwrapper (Descarga la libreria en la computadora)
+    pip install virtualenvwrapper-win (Indispensable con terminacion wi)
 
     mkvirtualenv ``Nombre del entorno`` (crea el entorno en una carpeta llamada envs en el directorio desde el que se ejecute el comando)
 
@@ -103,6 +104,9 @@ Tener en cuenta que de tener problemas con el paquete pip y su no reconocimiento
     pip list (Muestra todas las dependecias especificas del entorno)
 
     pip freeze -> requirements.txt (Crea un txt que se puede llamar de cualquier forma pero es una convencion usar "requirements", este txt contiene la informacion de todas las dependencias del entorno virtual. Este  txt sera posteriormente leido por los contribuidores del proyecto para instalar las dependencias, al igual que por el runner del server)
+
+    Una manera de leerlo es:
+    pip install -r requirements.txt
 
     deactivate (Desactiva el entorno)
     ```
