@@ -232,8 +232,3 @@ Se puede llamar al usuario en una view sin necesidad de un formulario si simplem
 #### Upstein, Elias Román
 - GitHub - [@EliasUpstein](https://github.com/EliasUpstein)
 - LinkedIn - [/]()
-
-#### Molinas, Nicolás 
-- GitHub - [@NicolasGabM](https://github.com/NicolasGabM)
-- LinkedIn - [Nicolas Gabriel Molinas](https://www.linkedin.com/in/nicolas-gabriel-molinas-20802a216/)
-

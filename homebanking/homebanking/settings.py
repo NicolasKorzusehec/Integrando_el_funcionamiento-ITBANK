@@ -24,10 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-frcba)em4)&1d_wzc30)8-%pzdh843$!pis&s7!4cz7p8m7zw@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # estaba en True
 
 ALLOWED_HOSTS = []
 
+#ver explicacion en codespace.md
+#CSRF_TRUSTED_ORIGINS = ['http://*.github.dev']
 
 # Application definition
 
