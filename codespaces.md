@@ -1,3 +1,63 @@
+# Ejecución para levantar el proyecto desde un Codespace de GitHub (Válido para programar desde una tablet)
+
+## Descargar Dependencias
+
+1. Accede desde la consola bash a la carpeta que inicializa el proyecto:
+
+    ```bash
+    # Ver los directorios y archivos en la ubicación actual
+    ls -a
+
+    # Entrar al directorio
+    cd (nombre de la carpeta)
+
+    # Volver atrás
+    cd ..
+    ```
+
+    **Ubicación:** `/workspace/Integrando_el_funcionamiento-ITBANK/homebanking`
+
+## Ejecutar el Servidor Django
+
+2. Ejecuta el servidor:
+
+    ```bash
+    python manage.py runserver
+    ```
+
+    - Puede aparecer un error relacionado con las migraciones. Para solucionarlo, ejecuta los siguientes comandos:
+
+        ```bash
+        python manage.py makemigrations
+        python manage.py migrate
+        ```
+
+    - Repite estos comandos si es necesario. Una vez que se solucionaron las migraciones, vuelve a ejecutar el servidor.
+
+3. Detener el programa: `Ctrl + C`
+
+## Crear Usuario Administrador
+
+4. Ejecuta el siguiente comando para crear un superusuario:
+
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+5. Ingresa a la pestaña de administración:
+
+    Al final de la URL de la aplicación una vez que se ha iniciado, agrega `/admin`.
+
+6. Completa la información del superusuario:
+
+    - **Superusuario Propuesto:**
+        - **Nombre:** ITBA
+        - **Correo:** nkorzusehec@gmail.com
+        - **Contraseña:** 1234
+        - **Clave:** 123
+
+
+
 Ejecucion para levantar el proyecto desde un codespace de github. Valido para programar desde una tablet,
 
 1. Descargo dependencias
