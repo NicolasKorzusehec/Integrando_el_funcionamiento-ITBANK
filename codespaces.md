@@ -1,4 +1,5 @@
 # Ejecución para levantar el proyecto desde un Codespace de GitHub (Válido para programar desde una tablet)
+Antes de comenzar, asegúrate de tener un Codespace configurado para este repositorio. Puedes inicializar un Codespace directamente desde la pestaña "Codespaces" de tu repositorio en GitHub. Una vez que el Codespace esté activo, accede a la consola bash para ejecutar los comandos necesarios.
 
 ## Descargar Dependencias
 
@@ -8,14 +9,19 @@
     # Ver los directorios y archivos en la ubicación actual
     ls -a
 
-    # Entrar al directorio
-    cd (nombre de la carpeta)
+    # Entrar al directorio de instalación de dependencias
+    cd /workspace/Integrando_el_funcionamiento-ITBANK
 
-    # Volver atrás
-    cd ..
+    # Descargar dependencias utilizando el siguiente comando
+    python -m pip install -r homebanking/requirements.txt
+
+    # Volver a la carpeta principal
+    cd homebanking
     ```
 
-    **Ubicación:** `/workspace/Integrando_el_funcionamiento-ITBANK/homebanking`
+    **Ubicación para Descargar Dependencias:** `/workspace/Integrando_el_funcionamiento-ITBANK`
+
+    **Ubicación del Proyecto:** `/workspace/Integrando_el_funcionamiento-ITBANK/homebanking`
 
 ## Ejecutar el Servidor Django
 
@@ -56,49 +62,6 @@
         - **Contraseña:** 1234
         - **Clave:** 123
 
-
-
-Ejecucion para levantar el proyecto desde un codespace de github. Valido para programar desde una tablet,
-
-1. Descargo dependencias
-
-1. accedo desde la consola bash a la carpeta que inicializa el proyecto
-Ver los Directorios y archivos en la ubicacion actual: 
-ls -a
-Entrar al directorio: 
-cd (nombre de la carpeta)
-volver para atras:
-cd ..
-
-Ubicacion:
-/workspace/Integrando_el_funcionamiento-ITBANK/homebanking
-
-1. Ejecuto 
-python manage.py runserver
-
-Seguro figura un error con las migraciones, en principio solucionarlo por el camino facil
-python manage.py makemigration
-python manage.py migrate
-
-Capaz hay que aplicar el comando mas de una vez. Una vez que se solucionaron las migraciones correr la ejecucion denuevo.
-
-1. Detener Programa
-ctrl + C
-
-1. Crear usuario administrador
-python manage.py createsuperuser
-
-1. Ingresar a la pestaña de administracion
-Al final de la url de la app una vez que se inicio agregar:
-/admin
-
-Desde aqui con el super user completar la informacion del superusuario, valida para el login.
-
-Super usuario propuesto: 
-Nombre: ITBA
-Correo: nkorzusehec@gmail.com
-Contraseña: 1234
-Clave: 123
 
 
 ## Problema con la verifiacion CSRF, con el debug false se soluciona pero no puedo correr la app.
