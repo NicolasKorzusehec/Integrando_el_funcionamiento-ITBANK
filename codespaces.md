@@ -1,5 +1,42 @@
 # Ejecución para levantar el proyecto desde un Codespace de GitHub (Válido para programar desde una tablet)
-Antes de comenzar, asegúrate de tener un Codespace configurado para este repositorio. Puedes inicializar un Codespace directamente desde la pestaña "Codespaces" de tu repositorio en GitHub. Una vez que el Codespace esté activo, accede a la consola bash para ejecutar los comandos necesarios.
+
+Antes de comenzar, asegúrate de tener un Codespace configurado para este repositorio. Puedes seguir estos pasos para inicializar un Codespace:
+
+1. Accede al repositorio de tu proyecto en GitHub.
+
+2. Haz clic en el botón "Code" (Código) en la parte superior derecha del repositorio.
+
+3. En lugar de descargar el repositorio, selecciona la pestaña "Codespaces".
+
+4. Haz clic en "New Codespace" para crear un nuevo entorno de desarrollo.
+
+5. Espera a que se configure el entorno. Una vez que el Codespace esté activo, estarás listo para ejecutar los comandos necesarios.
+
+**Nota:** Este proyecto incluye un archivo de configuración `devcontainer.json` que automatiza la configuración del entorno de desarrollo. Al iniciar el Codespace, el entorno se configura automáticamente con las dependencias y configuraciones necesarias.
+
+### Ventajas de Utilizar el Devcontainer
+
+El uso de un archivo `devcontainer.json` preconfigurado ofrece varias ventajas:
+
+- **Configuración Automática:** El entorno de desarrollo se configura automáticamente, eliminando la necesidad de configuraciones manuales.
+
+- **Reproducibilidad:** Todos los desarrolladores trabajan en un entorno consistente y reproducible, reduciendo posibles problemas de configuración.
+
+- **Aislamiento:** El entorno se aísla del sistema operativo del desarrollador, evitando conflictos con otras dependencias locales.
+
+- **Agilidad:** Iniciar un Codespace es rápido y sencillo, lo que mejora la eficiencia y la agilidad en el desarrollo.
+
+Estas ventajas hacen que la configuración del entorno de desarrollo sea más fluida y proporciona una experiencia consistente para todo el equipo de desarrollo.
+
+
+## Acceso a la Consola Bash
+
+Para acceder a la consola bash en tu Codespace:
+
+1. Busca y selecciona la opción "Open new terminal" (Abrir nueva terminal) en la barra inferior del entorno de Codespace.
+
+2. Se abrirá una consola bash lista para que puedas ejecutar los comandos necesarios para tu proyecto.
+
 
 ## Descargar Dependencias
 
